@@ -18,8 +18,8 @@ namespace E_CommerceManagementSystemEfCore.Entities
 
         public int CategoryId { get; set; }
 
-        public Category Category { get; set; } = new();
+        public Category Category { get; set; } = null!;
 
-        public ProductDetails Details { get; set; } = new();
+        public ProductDetails Details { get; set; } = null!;
     }
 }

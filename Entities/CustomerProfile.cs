@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace E_CommerceManagementSystemEfCore.Entities
 {
-    internal class CustomerProfile
+    public class CustomerProfile
     {
+        public int Id { get; set; }
+
+        public string PhoneNumber { get; set; } = "";
+
+        public DateTime BirthDate { get; set; }
+
+        public Customer Customer { get; set; } = null!;
     }
 }

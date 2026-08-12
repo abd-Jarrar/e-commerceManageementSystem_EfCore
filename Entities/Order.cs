@@ -16,7 +16,7 @@ namespace E_CommerceManagementSystemEfCore.Entities
 
         public int CustomerId { get; set; }
 
-        public Customer Customer { get; set; } = new();
+        public Customer Customer { get; set; } = null!;
 
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
     }

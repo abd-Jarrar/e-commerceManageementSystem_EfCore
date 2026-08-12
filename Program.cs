@@ -35,7 +35,14 @@ namespace E_CommerceManagementSystemEfCore
                 }
 
                 var Categories = context.Categories.Include(x => x.Products).AsNoTracking();//eager loading
-               
+                context.Reviews.ExecuteUpdate(x => x.SetProperty(x => x.Rating , 8));//effecient update
+
+                var name = "abood";
+                var users = context.Users.
+                    FromSqlInterpolated($"select * from users where FullName={name}")
+                    .ToList();//pass sql parameter 
+
+
             }
         }
     }

@@ -16,6 +16,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
             builder.HasKey(x => x.Id);
             builder.Property(x=>x.FullName).IsRequired().HasMaxLength(40);
             builder.Property(x => x.Email).IsRequired().HasMaxLength(30);
+            builder.Property(x => x.IsDeleted).IsRequired();
             
         }
     }

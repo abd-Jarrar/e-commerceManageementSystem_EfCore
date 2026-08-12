@@ -14,6 +14,11 @@ namespace E_CommerceManagementSystemEfCore.Configuration
         public void Configure(EntityTypeBuilder<CustomerProfile> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasData(
+                 new CustomerProfile { Id = 1, PhoneNumber = "050234444", BirthDate = new DateTime(2026, 8, 12) },
+                 new CustomerProfile { Id = 2, PhoneNumber = "050234444", BirthDate = new DateTime(2026, 8, 12) }
+
+                );
             builder.Property(x=>x.PhoneNumber).IsRequired().HasMaxLength(15);
             builder.HasOne(x => x.Customer)
             .WithOne(x => x.CustomerProfile)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_CommerceManagementSystemEfCore.Entities
 {
-    public abstract class User : ISoftDeleable
+    public abstract class User : ISoftDeleteable
     {
         public int Id { get; set; }
 

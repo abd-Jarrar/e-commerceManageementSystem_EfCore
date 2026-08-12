@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_CommerceManagementSystemEfCore.Interfaces
 {
-    public interface ISoftDeleable
+    public interface ISoftDeleteable
     {
         public bool IsDeleted { get; set; }
         public DateTime? DateDeleted { get; set; }

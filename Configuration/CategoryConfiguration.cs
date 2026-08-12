@@ -13,7 +13,13 @@ namespace E_CommerceManagementSystemEfCore.Configuration
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.HasData(
+                new Category { Name = "Electronics" },
+                new Category { Name = "Clothing" },
+                new Category { Name = "Books" }
+                );
             builder.HasKey(x=>x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x=>x.Name).IsRequired();
             builder.HasIndex(x => x.Name);
             builder.HasMany(x => x.Products).

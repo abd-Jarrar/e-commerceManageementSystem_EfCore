@@ -12,7 +12,7 @@ namespace E_CommerceManagementSystemEfCore.Entities
         public Address Address { get; set; } = null!;
         public ICollection<Order> Orders { get; set; } = new List<Order>();
 
-        public CustomerProfile CustomerProfile = null!;
+        public CustomerProfile CustomerProfile { get; set; } = null!;
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
 
     }

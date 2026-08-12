@@ -17,6 +17,30 @@ namespace E_CommerceManagementSystemEfCore.Configuration
             builder.Property(x => x.Quantity).IsRequired();
             builder.Property(x => x.Price).IsRequired();
 
+            builder.HasData(
+            new OrderItem
+            {
+                OrderId = 1,
+                ProductId = 1,
+                Quantity = 2,
+                Price = 100m
+            },
+            new OrderItem
+            {
+                OrderId = 1,
+                ProductId = 2,
+                Quantity = 1,
+                Price = 50m
+            },
+            new OrderItem
+            {
+                OrderId = 2,
+                ProductId = 1,
+                Quantity = 1,
+                Price = 100m
+            }
+        );
+
             builder.HasOne(x => x.Order)
               .WithMany(x => x.Items)
               .HasForeignKey(x => x.OrderId);

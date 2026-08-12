@@ -1,0 +1,29 @@
+﻿using E_CommerceManagementSystemEfCore.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace E_CommerceManagementSystemEfCore.Configuration
+{
+    public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+    {
+        public void Configure(EntityTypeBuilder<Employee> builder)
+        {
+            builder.HasData(
+                new Employee
+                {
+                    Id = 1,
+                    FullName = "abood",
+                    Email = "abood23@example.com",
+                    Salary = 2000,
+                    HireDate = DateTime.Now
+                });
+            builder.Property(x => x.Salary).IsRequired().HasPrecision(18, 2);
+            builder.Property(x => x.HireDate).IsRequired();
+        }
+    }
+}

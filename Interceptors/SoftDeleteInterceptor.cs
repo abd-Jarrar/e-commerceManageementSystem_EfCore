@@ -17,7 +17,7 @@ namespace E_CommerceManagementSystemEfCore.Interceptors
                 return result;
             foreach(var entry in eventData.Context.ChangeTracker.Entries())
             {
-                if (entry is null || entry.State != EntityState.Deleted || entry.Entity is not ISoftDeleable entity)
+                if (entry is null || entry.State != EntityState.Deleted || entry.Entity is not ISoftDeleteable entity)
                     continue;
                 entry.State= EntityState.Modified;
                 entity.Delete();

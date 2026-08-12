@@ -35,6 +35,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
             builder.Property(x => x.Status).HasConversion<string>();
             builder.Ignore(x => x.TotalPrice);
             builder.HasIndex(x => new { x.CustomerId, x.CreatedDate });
+            
             builder.ToTable("Orders");
 
         }

@@ -43,11 +43,11 @@ namespace E_CommerceManagementSystemEfCore.Configuration
 
             builder.HasOne(x => x.Order)
               .WithMany(x => x.Items)
-              .HasForeignKey(x => x.OrderId);
+              .HasForeignKey(x => x.OrderId).OnDelete(DeleteBehavior.Cascade); ;
 
             builder.HasOne(x => x.Product)
                    .WithMany()
-                   .HasForeignKey(x => x.ProductId);
+                   .HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Cascade); ;
         }
     }
 }

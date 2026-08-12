@@ -16,7 +16,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
             builder.HasData(
                 new Employee
                 {
-                    Id = 1,
+                    Id = 3,
                     FullName = "abood",
                     Email = "abood23@example.com",
                     Salary = 2000,

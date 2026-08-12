@@ -27,7 +27,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
         new Product
         {
             Id = 2,
-            Name = "Football",
+            Name = "t-shirt",
             Price = 50m,
             StockQuantity = 25,
             CategoryId = 2
@@ -35,7 +35,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
         new Product
         {
             Id = 3,
-            Name = "Running Shoes",
+            Name = "c# for beginners",
             Price = 80m,
             StockQuantity = 15,
             CategoryId = 2

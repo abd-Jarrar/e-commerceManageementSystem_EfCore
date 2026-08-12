@@ -19,6 +19,23 @@ namespace E_CommerceManagementSystemEfCore.Configuration
                 address.Property(x => x.City).IsRequired().HasMaxLength(100);
                 address.Property(x => x.Street).IsRequired().HasMaxLength(200);
                 address.Property(x => x.BuildingNumber).IsRequired().HasMaxLength(20);
+
+                address.HasData(
+        new
+        {
+            CustomerId = 1,
+            City = "nablus",
+            Street = "Main Street",
+            BuildingNumber = "10"
+        },
+        new
+        {
+            CustomerId = 2,
+            City = "nablus",
+            Street = "Main Street",
+            BuildingNumber = "20"
+        }
+    );
             });
             builder.HasData(
                 new Customer
@@ -26,26 +43,18 @@ namespace E_CommerceManagementSystemEfCore.Configuration
                      Id = 1,
                      FullName = "abood",
                      Email = "abood@example.com",
-                     Address = new Address
-                     {
-                     City = "nablus",
-                     Street = "Main Street"
-                     }
+                     
                 },
                 new Customer
                 {
                     Id = 2,
                     FullName = "rami",
                     Email = "rami@example.com",
-                    Address = new Address
-                    {
-                        City = "nablus",
-                        Street = "Main Street"
-                    }
+                    
                 }
                 );
             builder.HasMany(x=>x.Orders).WithOne(x=>x.Customer).HasForeignKey(x=>x.CustomerId);
-            builder.ToTable("Customers");
+            
         } 
     }
 }

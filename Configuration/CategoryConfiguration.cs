@@ -14,9 +14,9 @@ namespace E_CommerceManagementSystemEfCore.Configuration
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasData(
-                new Category { Name = "Electronics" },
-                new Category { Name = "Clothing" },
-                new Category { Name = "Books" }
+                new Category {Id=1, Name = "Electronics" },
+                new Category { Id = 2, Name = "Clothing" },
+                new Category { Id = 3, Name = "Books" }
                 );
             builder.HasKey(x=>x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();

@@ -191,7 +191,7 @@ namespace E_CommerceManagementSystemEfCore.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DateDeleted", "Email", "FullName", "HireDate", "IsDeleted", "Salary", "UserType" },
-                values: new object[] { 3, null, "abood23@example.com", "abood", new DateTime(2026, 8, 12, 21, 53, 28, 237, DateTimeKind.Local).AddTicks(9608), false, 2000m, "Employee" });
+                values: new object[] { 3, null, "abood23@example.com", "abood", new DateTime(2016, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 2000m, "Employee" });
 
             migrationBuilder.InsertData(
                 table: "CustomerProfiles",

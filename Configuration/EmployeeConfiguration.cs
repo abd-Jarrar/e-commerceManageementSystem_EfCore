@@ -20,7 +20,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
                     FullName = "abood",
                     Email = "abood23@example.com",
                     Salary = 2000,
-                    HireDate = DateTime.Now
+                    HireDate = new DateTime(2016, 8, 2)
                 });
             builder.Property(x => x.Salary).IsRequired().HasPrecision(18, 2);
             builder.Property(x => x.HireDate).IsRequired();

@@ -13,7 +13,10 @@ namespace E_CommerceManagementSystemEfCore.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(x => x.Id);
+            builder.Property(x=>x.FullName).IsRequired().HasMaxLength(40);
+            builder.Property(x => x.Email).IsRequired().HasMaxLength(30);
+            
         }
     }
 }

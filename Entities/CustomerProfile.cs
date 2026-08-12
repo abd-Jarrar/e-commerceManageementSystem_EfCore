@@ -15,5 +15,8 @@ namespace E_CommerceManagementSystemEfCore.Entities
         public DateTime BirthDate { get; set; }
 
         public Customer Customer { get; set; } = null!;
+
+        
+
     }
 }

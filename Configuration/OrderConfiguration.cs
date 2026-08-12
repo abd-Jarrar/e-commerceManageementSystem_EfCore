@@ -13,7 +13,12 @@ namespace E_CommerceManagementSystemEfCore.Configuration
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.CreatedDate).IsRequired();
+            builder.Property(x => x.Status).HasConversion<string>();
+            builder.Ignore(x => x.TotalPrice);
+            builder.HasIndex(x => new { x.CustomerId, x.CreatedDate });
+            
         }
     }
 }

@@ -21,5 +21,8 @@ namespace E_CommerceManagementSystemEfCore.Entities
         public Category Category { get; set; } = null!;
 
         public ProductDetails Details { get; set; } = null!;
+
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+
     }
 }

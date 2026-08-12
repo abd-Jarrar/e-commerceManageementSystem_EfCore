@@ -13,7 +13,12 @@ namespace E_CommerceManagementSystemEfCore.Configuration
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.Name).IsRequired();
+            builder.HasIndex(x => x.Name);
+            builder.HasMany(x => x.Products).
+                WithOne(x => x.Category)
+                .HasForeignKey(x => x.CategoryId);
         }
     }
 }

@@ -19,6 +19,9 @@ namespace E_CommerceManagementSystemEfCore.Entities
         public Customer Customer { get; set; } = null!;
 
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        public decimal TotalPrice => Items.Sum(x => x.Price * x.Quantity);
+
     }
 
     

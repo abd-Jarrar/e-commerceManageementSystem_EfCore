@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_CommerceManagementSystemEfCore.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace E_CommerceManagementSystemEfCore.Entities
 {
-    public abstract class User
+    public abstract class User : ISoftDeleable
     {
         public int Id { get; set; }
 
         public string FullName { get; set; } = "";
 
         public string Email { get; set; }="";
-
-        public bool IsDeleted { get; set; } = "";
+        public bool IsDeleted { get; set; }
+        public DateTime? DateDeleted { get; set; }
     }
 }

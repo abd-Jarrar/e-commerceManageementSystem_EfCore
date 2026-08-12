@@ -14,6 +14,8 @@ namespace E_CommerceManagementSystemEfCore.Configuration
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasKey(x=>x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+
             builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
             builder.Property(x => x.Price).IsRequired().HasPrecision(18, 2); 
             builder.Property(x => x.StockQuantity).IsRequired();
@@ -24,6 +26,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
                 x.Property(x => x.Description).IsRequired().HasMaxLength(300);
 
             });
+            builder.ToTable("Products");
         }
     }
 }

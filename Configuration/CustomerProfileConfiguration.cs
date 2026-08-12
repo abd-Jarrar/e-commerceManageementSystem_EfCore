@@ -19,6 +19,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
             .WithOne(x => x.CustomerProfile)
             .HasForeignKey<CustomerProfile>(x => x.Id);
             builder.Property(x => x.BirthDate).IsRequired();
+            builder.ToTable("CustomerProfiles");
         }
     }
 }

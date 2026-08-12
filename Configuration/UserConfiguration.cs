@@ -14,9 +14,17 @@ namespace E_CommerceManagementSystemEfCore.Configuration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id)
+              .ValueGeneratedOnAdd();
             builder.Property(x=>x.FullName).IsRequired().HasMaxLength(40);
             builder.Property(x => x.Email).IsRequired().HasMaxLength(30);
             builder.Property(x => x.IsDeleted).IsRequired();
+            builder.HasQueryFilter(x => x.IsDeleted == false);
+            builder.HasDiscriminator<string>("UserType")
+                .HasValue<Employee>("Employee")
+                .HasValue<Customer>("Customer")
+                .HasValue<Admin>("Admin");
+            builder.ToTable("Users");
             
         }
     }

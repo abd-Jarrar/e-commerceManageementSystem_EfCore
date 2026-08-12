@@ -22,6 +22,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
             });
             
             builder.HasMany(x=>x.Orders).WithOne(x=>x.Customer).HasForeignKey(x=>x.CustomerId);
+            builder.ToTable("Customers");
         } 
     }
 }

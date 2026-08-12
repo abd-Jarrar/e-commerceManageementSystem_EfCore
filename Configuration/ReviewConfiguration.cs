@@ -14,10 +14,13 @@ namespace E_CommerceManagementSystemEfCore.Configuration
         public void Configure(EntityTypeBuilder<Review> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+
             builder.Property(x => x.Rating).IsRequired();
             builder.Property(x => x.Comment).HasMaxLength(300);
             builder.HasOne<Customer>(x=>x.Customer).WithMany(x=>x.Reviews).HasForeignKey(x => x.CustomerId);
             builder.HasOne<Product>(x => x.Product).WithMany(x=>x.Reviews).HasForeignKey(x => x.ProductId);
+            builder.ToTable("Reviews");
         }
     }
 }

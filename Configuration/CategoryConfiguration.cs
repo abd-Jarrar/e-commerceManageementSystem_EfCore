@@ -19,6 +19,7 @@ namespace E_CommerceManagementSystemEfCore.Configuration
             builder.HasMany(x => x.Products).
                 WithOne(x => x.Category)
                 .HasForeignKey(x => x.CategoryId);
+            builder.ToTable("Categories");
         }
     }
 }

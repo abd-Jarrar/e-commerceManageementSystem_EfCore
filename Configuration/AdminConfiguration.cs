@@ -1,0 +1,19 @@
+﻿using E_CommerceManagementSystemEfCore.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace E_CommerceManagementSystemEfCore.Configuration
+{
+    public class AdminConfiguration : IEntityTypeConfiguration<Admin>
+    {
+        public void Configure(EntityTypeBuilder<Admin> builder)
+        {
+            builder.Property(x => x.Role).IsRequired().HasMaxLength(30);
+        }
+    }
+}

@@ -28,4 +28,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerce.Business\ECommerce.Business.csproj" />
+	<ProjectReference Include="..\ECommerce.Database\ECommerce.Database.csproj" />
+
+  </ItemGroup>
+
 </Project>

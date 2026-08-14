@@ -1,0 +1,31 @@
+﻿using ECommerce.Business.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ECommerce.Database.Configuration
+{
+    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+    {
+        public void Configure(EntityTypeBuilder<Category> builder)
+        {
+            builder.HasData(
+                new Category {Id=1, Name = "Electronics" },
+                new Category { Id = 2, Name = "Clothing" },
+                new Category { Id = 3, Name = "Books" }
+                );
+            builder.HasKey(x=>x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x=>x.Name).IsRequired();
+            builder.HasIndex(x => x.Name);
+            builder.HasMany(x => x.Products).
+                WithOne(x => x.Category)
+                .HasForeignKey(x => x.CategoryId);
+            builder.ToTable("Categories");
+        }
+    }
+}

@@ -26,6 +26,16 @@ namespace ECommerce.App
 
             using var context = new AppDbContext(options);
 
+            var employees = context.Users.Where(emp => emp is Employee).ToList();
+            foreach (var emp in employees)
+            {
+                Console.WriteLine(emp.Id);
+                Console.WriteLine(emp.FullName);
+                Console.WriteLine(emp.Email);
+                Console.WriteLine("--------------");
+            }
+
+
             Console.WriteLine("E-Commerce Management System");
         }
     }

@@ -37,7 +37,7 @@ namespace ECommerce.App
                 productRepository,
                 categoryRepository,
                 unitOfWork);
-            var result = productService.GetProductById(1);
+            var result = productService.GetProductByName("Gaming Laptop");
 
             if (result.IsSuccess)
             {

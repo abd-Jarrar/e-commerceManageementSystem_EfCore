@@ -90,5 +90,22 @@ namespace ECommerce.Business.Services
             }
             return Result<Product>.Success(product);
         }
+
+        public Result<Product> GetProductByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return Result<Product>.Failure(
+                    "Product name cannot be empty.");
+            }
+
+            var product = _productRepository.GetByName(name);
+            if (product is null)
+            {
+                return Result<Product>.Failure(
+                    "Product not found.");
+            }
+            return Result<Product>.Success(product);
+        }
     }
 }

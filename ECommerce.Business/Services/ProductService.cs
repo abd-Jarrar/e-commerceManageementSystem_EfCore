@@ -74,6 +74,21 @@ namespace ECommerce.Business.Services
             return Result<Product>.Success(product);
         }
 
-        
+        public Result<Product> GetProductById(int id)
+        {
+            if (id <= 0)
+            {
+                return Result<Product>.Failure(
+                    "Product ID must be greater than zero.");
+            }
+
+            var product = _productRepository.GetById(id);
+            if (product is null)
+            {
+                return Result<Product>.Failure(
+                    "Product not found.");
+            }
+            return Result<Product>.Success(product);
+        }
     }
 }

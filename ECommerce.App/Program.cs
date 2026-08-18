@@ -37,28 +37,25 @@ namespace ECommerce.App
                 productRepository,
                 categoryRepository,
                 unitOfWork);
-
-            // Business operation
-            var result = productService.CreateProduct(
-                "Keyboard",
-                50,
-                1,"blue",null,"mechanical keyboard");
+            var result = productService.GetProductById(1);
 
             if (result.IsSuccess)
             {
-                Console.WriteLine("Product created successfully.");
-                Console.WriteLine($"Id: {result.Data!.Id}");
-                Console.WriteLine($"Name: {result.Data.Name}");
-                Console.WriteLine($"Price: {result.Data.Price}");
-                Console.WriteLine($"Price: {result.Data.Details.Color}");
-                Console.WriteLine($"Price: {result.Data.Details.Weight}");
-                Console.WriteLine($"Price: {result.Data.Details.Description}");
+                var product = result.Data!;
+
+                Console.WriteLine($"Id: {product.Id}");
+                Console.WriteLine($"Name: {product.Name}");
+                Console.WriteLine($"Price: {product.Price}");
+                Console.WriteLine($"Color: {product.Details.Color}");
+                Console.WriteLine($"Weight: {product.Details.Weight}");
+                Console.WriteLine($"Description: {product.Details.Description}");
             }
             else
             {
                 Console.WriteLine($"Failed: {result.Error}");
             }
-            Console.WriteLine("E-Commerce Management System");
+
+
         }
     }
 }

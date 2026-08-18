@@ -11,8 +11,8 @@ namespace ECommerce.Business.Interfaces
     {
         Category? GetById(int id);
         Category? GetByName(string name);
-        void AddCategory(Category category);
-        void RemoveCategory(Category category);
+        void Add(Category category);
+        void Remove(Category category);
 
         List<Category> GetAll();
 

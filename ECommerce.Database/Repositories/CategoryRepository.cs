@@ -16,7 +16,7 @@ namespace ECommerce.Database.Repositories
         public CategoryRepository(AppDbContext context) {
             _context = context;
         }
-        public void AddCategory(Category category)
+        public void Add(Category category)
         {
             _context.Categories.Add(category);
         }
@@ -37,7 +37,7 @@ namespace ECommerce.Database.Repositories
 
         }
 
-        public void RemoveCategory(Category category)
+        public void Remove(Category category)
         {
             _context.Categories.Remove(category);
         }

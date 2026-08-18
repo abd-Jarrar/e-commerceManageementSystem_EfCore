@@ -11,6 +11,8 @@ namespace ECommerce.Business.Interfaces
     {
         Product? GetById(int id);
 
+        Product? GetByName(string name);
+
         List<Product> GetAll();
 
         void Add(Product product);
@@ -18,5 +20,7 @@ namespace ECommerce.Business.Interfaces
         void Update(Product product);
 
         void Delete(Product product);
+
+
     }
 }

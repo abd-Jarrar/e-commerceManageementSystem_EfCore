@@ -36,6 +36,11 @@ namespace ECommerce.Database.Repositories
             return _context.Products.FirstOrDefault(p=>p.Id == id);
         }
 
+        public Product? GetByName(string name)
+        {
+            return _context.Products.FirstOrDefault(p => p.Name == name);
+        }
+
         public void Update(Product product)
         {
             _context.Products.Update(product);

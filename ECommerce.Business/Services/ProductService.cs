@@ -4,6 +4,7 @@ using ECommerce.Business.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -173,5 +174,16 @@ namespace ECommerce.Business.Services
             return Result<Product>.Success(product);
         }
         
+        public Result<int> ApplyDiscount(Expression<Func<Product, bool>> condition,decimal discountPercentage)
+        {
+            if (discountPercentage <= 0 || discountPercentage >= 100)
+            {
+                return Result<int>.Failure(
+                    "Discount must be between 0 and 100.");
+            }
+            int affectedProducts = _productRepository.ApplyDiscount(condition,discountPercentage);
+            _unitOfWork.SaveChanges();
+            return Result<int>.Success(affectedProducts);
+        }
     }
 }

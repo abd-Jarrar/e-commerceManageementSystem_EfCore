@@ -38,8 +38,41 @@ namespace ECommerce.App
                 productRepository,
                 categoryRepository,
                 unitOfWork);
-           
 
+            var updateResult = productService.UpdateProduct(
+    1,
+    "Keyboard",
+    100,
+    1,
+    "blue",
+    null,
+    "mechanical keyboard");
+
+            if (updateResult.IsSuccess)
+            {
+                Console.WriteLine("Product updated successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"Failed: {updateResult.Error}");
+            }
+
+
+            // Get the same product again
+            var getResult = productService.GetProductById(1);
+
+            if (getResult.IsSuccess)
+            {
+                var product = getResult.Data!;
+
+                Console.WriteLine($"Id: {product.Id}");
+                Console.WriteLine($"Name: {product.Name}");
+                Console.WriteLine($"Price: {product.Price}");
+            }
+            else
+            {
+                Console.WriteLine($"Failed: {getResult.Error}");
+            }
 
         }
 

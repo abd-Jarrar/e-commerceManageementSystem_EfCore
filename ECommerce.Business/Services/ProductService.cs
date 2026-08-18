@@ -173,7 +173,28 @@ namespace ECommerce.Business.Services
 
             return Result<Product>.Success(product);
         }
-        
+
+        public Result<Product> DeleteProduct(int id)
+        {
+            if (id <= 0)
+            {
+                return Result<Product>.Failure(
+                    "Product ID must be greater than zero.");
+            }
+
+            var product = _productRepository.GetById(id);
+
+            if (product is null)
+            {
+                return Result<Product>.Failure(
+                    "Product not found.");
+            }
+
+            _productRepository.Delete(product);
+            _unitOfWork.SaveChanges();
+
+            return Result<Product>.Success(product);
+        }
         public Result<int> ApplyDiscount(Expression<Func<Product, bool>> condition,decimal discountPercentage)
         {
             if (discountPercentage <= 0 || discountPercentage >= 100)

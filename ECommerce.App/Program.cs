@@ -39,39 +39,16 @@ namespace ECommerce.App
                 categoryRepository,
                 unitOfWork);
 
-            var updateResult = productService.UpdateProduct(
-    1,
-    "Keyboard",
-    100,
-    1,
-    "blue",
-    null,
-    "mechanical keyboard");
+            var result = productService.DeleteProduct(1);
 
-            if (updateResult.IsSuccess)
+            if (result.IsSuccess)
             {
-                Console.WriteLine("Product updated successfully.");
+                Console.WriteLine(
+                    $"Product '{result.Data!.Name}' deleted successfully.");
             }
             else
             {
-                Console.WriteLine($"Failed: {updateResult.Error}");
-            }
-
-
-            // Get the same product again
-            var getResult = productService.GetProductById(1);
-
-            if (getResult.IsSuccess)
-            {
-                var product = getResult.Data!;
-
-                Console.WriteLine($"Id: {product.Id}");
-                Console.WriteLine($"Name: {product.Name}");
-                Console.WriteLine($"Price: {product.Price}");
-            }
-            else
-            {
-                Console.WriteLine($"Failed: {getResult.Error}");
+                Console.WriteLine($"Failed: {result.Error}");
             }
 
         }

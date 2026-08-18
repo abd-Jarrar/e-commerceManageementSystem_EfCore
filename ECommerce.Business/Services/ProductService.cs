@@ -13,14 +13,18 @@ namespace ECommerce.Business.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository,ICategoryRepository categoryRepository)
+        public ProductService(IProductRepository productRepository,ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Result<Product> CreateProduct(string name,decimal price,int categoryId)
+        public Result<Product> CreateProduct(string name,decimal price,int categoryId, string color,
+    decimal? weight,
+    string description)
         {
             
             if (string.IsNullOrWhiteSpace(name))
@@ -40,15 +44,36 @@ namespace ECommerce.Business.Services
                 return Result<Product>.Failure(
                     "The specified category does not exist.");
             }
+            if (string.IsNullOrWhiteSpace(color))
+            {
+                return Result<Product>.Failure(
+                    "Product color cannot be empty.");
+            }
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                return Result<Product>.Failure(
+                    "Product description cannot be empty.");
+            }
+            
             var product = new Product
             {
                 Name = name.Trim(),
                 Price = price,
                 StockQuantity = 0,
-                CategoryId = categoryId
+                CategoryId = categoryId,
+                Details = new ProductDetails
+                {
+                    Color = color,
+                    Weight = weight,
+                    Description = description
+                }
+
             };
             _productRepository.Add(product);
-             return Result<Product>.Success(product);
+            _unitOfWork.SaveChanges();
+            return Result<Product>.Success(product);
         }
+
+        
     }
 }

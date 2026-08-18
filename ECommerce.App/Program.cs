@@ -1,7 +1,9 @@
 ﻿using ECommerce.Business.Entities;
-using Microsoft.EntityFrameworkCore;
+using ECommerce.Business.Services;
 using ECommerce.Database.Data;
 using ECommerce.Database.Interceptors;
+using ECommerce.Database.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
@@ -26,16 +28,36 @@ namespace ECommerce.App
 
             using var context = new AppDbContext(options);
 
-            var employees = context.Users.Where(emp => emp is Employee).ToList();
-            foreach (var emp in employees)
+            var productRepository = new ProductRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            var unitOfWork = new UnitOfWork(context);
+
+
+            var productService = new ProductService(
+                productRepository,
+                categoryRepository,
+                unitOfWork);
+
+            // Business operation
+            var result = productService.CreateProduct(
+                "Keyboard",
+                50,
+                1,"blue",null,"mechanical keyboard");
+
+            if (result.IsSuccess)
             {
-                Console.WriteLine(emp.Id);
-                Console.WriteLine(emp.FullName);
-                Console.WriteLine(emp.Email);
-                Console.WriteLine("--------------");
+                Console.WriteLine("Product created successfully.");
+                Console.WriteLine($"Id: {result.Data!.Id}");
+                Console.WriteLine($"Name: {result.Data.Name}");
+                Console.WriteLine($"Price: {result.Data.Price}");
+                Console.WriteLine($"Price: {result.Data.Details.Color}");
+                Console.WriteLine($"Price: {result.Data.Details.Weight}");
+                Console.WriteLine($"Price: {result.Data.Details.Description}");
             }
-
-
+            else
+            {
+                Console.WriteLine($"Failed: {result.Error}");
+            }
             Console.WriteLine("E-Commerce Management System");
         }
     }

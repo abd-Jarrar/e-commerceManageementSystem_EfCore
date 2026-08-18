@@ -1,5 +1,6 @@
 ﻿using ECommerce.Business.Entities;
 using ECommerce.Business.Interfaces;
+using ECommerce.Database.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,34 @@ namespace ECommerce.Database.Repositories
 {
     public class ProductRepository : IProductRepository
     {
+        private readonly AppDbContext _context;
+        public ProductRepository(AppDbContext context)
+        {
+            _context = context;
+        }
         public void Add(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Add(product);
         }
 
         public void Delete(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Remove(product);
         }
 
         public List<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Products.ToList();
         }
 
         public Product? GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Products.FirstOrDefault(p=>p.Id == id);
         }
 
         public void Update(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Update(product);
         }
     }
 }

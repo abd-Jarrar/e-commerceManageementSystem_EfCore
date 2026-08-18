@@ -10,7 +10,7 @@ namespace ECommerce.Business.Entities
     {
         public string Color { get; set; } = "";
 
-        public decimal Weight { get; set; }
+        public decimal? Weight { get; set; }
 
         public string Description { get; set; } = "";
     }

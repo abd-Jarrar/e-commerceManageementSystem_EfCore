@@ -38,27 +38,10 @@ namespace ECommerce.App
                 productRepository,
                 categoryRepository,
                 unitOfWork);
-            var result = productService.GetAllProducts();
-            if (result.IsSuccess)
-            {
-                foreach (var product in result.Data!)
-                {
-                    Console.WriteLine($"Id: {product.Id}");
-                    Console.WriteLine($"Name: {product.Name}");
-                    Console.WriteLine($"Price: {product.Price}");
-                    Console.WriteLine($"Stock: {product.StockQuantity}");
-                    Console.WriteLine($"Color: {product.Details.Color}");
-                    Console.WriteLine($"Weight: {product.Details.Weight}");
-                    Console.WriteLine($"Description: {product.Details.Description}");
-                    Console.WriteLine("--------------------");
-                }
-            }
-            else
-            {
-                Console.WriteLine($"Failed: {result.Error}");
-            }
+           
 
 
         }
+
     }
 }

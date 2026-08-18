@@ -15,6 +15,7 @@ namespace ECommerce.Business.Interfaces
 
         List<Product> GetAll();
 
+
         void Add(Product product);
 
         void Update(Product product);

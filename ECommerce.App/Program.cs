@@ -1,4 +1,5 @@
 ﻿using ECommerce.Business.Entities;
+using ECommerce.Business.Results;
 using ECommerce.Business.Services;
 using ECommerce.Database.Data;
 using ECommerce.Database.Interceptors;
@@ -37,18 +38,20 @@ namespace ECommerce.App
                 productRepository,
                 categoryRepository,
                 unitOfWork);
-            var result = productService.GetProductByName("Gaming Laptop");
-
+            var result = productService.GetAllProducts();
             if (result.IsSuccess)
             {
-                var product = result.Data!;
-
-                Console.WriteLine($"Id: {product.Id}");
-                Console.WriteLine($"Name: {product.Name}");
-                Console.WriteLine($"Price: {product.Price}");
-                Console.WriteLine($"Color: {product.Details.Color}");
-                Console.WriteLine($"Weight: {product.Details.Weight}");
-                Console.WriteLine($"Description: {product.Details.Description}");
+                foreach (var product in result.Data!)
+                {
+                    Console.WriteLine($"Id: {product.Id}");
+                    Console.WriteLine($"Name: {product.Name}");
+                    Console.WriteLine($"Price: {product.Price}");
+                    Console.WriteLine($"Stock: {product.StockQuantity}");
+                    Console.WriteLine($"Color: {product.Details.Color}");
+                    Console.WriteLine($"Weight: {product.Details.Weight}");
+                    Console.WriteLine($"Description: {product.Details.Description}");
+                    Console.WriteLine("--------------------");
+                }
             }
             else
             {

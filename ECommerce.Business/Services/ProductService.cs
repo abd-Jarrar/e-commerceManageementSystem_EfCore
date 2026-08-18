@@ -107,5 +107,9 @@ namespace ECommerce.Business.Services
             }
             return Result<Product>.Success(product);
         }
+        public Result<List<Product>> GetAllProducts()
+        {
+            return  Result<List<Product>>.Success( _productRepository.GetAll());
+        }
     }
 }

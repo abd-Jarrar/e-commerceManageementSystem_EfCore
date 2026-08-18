@@ -46,7 +46,7 @@ namespace ECommerce.Database.Configuration
             builder.Property(x => x.StockQuantity).IsRequired();
             builder.OwnsOne(x => x.Details, x =>
             {
-                x.Property(x => x.Weight).IsRequired().HasPrecision(18, 2); ;
+                x.Property(x => x.Weight).HasPrecision(18, 2); ;
                 x.Property(x => x.Color).IsRequired().HasMaxLength(25);
                 x.Property(x => x.Description).IsRequired().HasMaxLength(300);
                 x.HasData(

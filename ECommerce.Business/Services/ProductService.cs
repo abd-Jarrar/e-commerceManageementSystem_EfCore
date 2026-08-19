@@ -174,7 +174,7 @@ namespace ECommerce.Business.Services
             return Result<Product>.Success(product);
         }
 
-        public Result<Product> DeleteProduct(int id)
+        public Result<Product> DeleteProductByID(int id)
         {
             if (id <= 0)
             {

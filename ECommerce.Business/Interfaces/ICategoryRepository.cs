@@ -19,5 +19,7 @@ namespace ECommerce.Business.Interfaces
         void UpdateCategory(Category category);
         bool HasProducts(int categoryId);
 
+       
+
     }
 }

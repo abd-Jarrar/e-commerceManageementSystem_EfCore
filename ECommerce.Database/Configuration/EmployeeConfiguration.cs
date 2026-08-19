@@ -13,6 +13,7 @@ namespace ECommerce.Database.Configuration
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
+
             builder.HasData(
                 new Employee
                 {

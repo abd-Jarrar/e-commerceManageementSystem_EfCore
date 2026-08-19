@@ -24,6 +24,9 @@ namespace ECommerce.Database.Configuration
                 .HasValue<Employee>("Employee")
                 .HasValue<Customer>("Customer")
                 .HasValue<Admin>("Admin");
+
+            builder.HasIndex(x => x.Email)
+       .IsUnique();
             builder.ToTable("Users");
             
         }

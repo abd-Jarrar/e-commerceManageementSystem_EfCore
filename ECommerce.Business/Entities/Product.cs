@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECommerce.Business.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Business.Entities
 {
-    public class Product
+    public class Product : ISoftDeleteable
     {
         public int Id { get; set; }
 
@@ -24,6 +25,6 @@ namespace ECommerce.Business.Entities
         public ProductDetails Details { get; set; } = null!;
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
-
+        public DateTime? DateDeleted { get; set; }
     }
 }

@@ -174,7 +174,7 @@ namespace ECommerce.Business.Services
             return Result<Product>.Success(product);
         }
 
-        public Result<Product> DeleteProductByID(int id)
+        public Result<Product> DeactivateProductById(int id)
         {
             if (id <= 0)
             {
@@ -189,7 +189,11 @@ namespace ECommerce.Business.Services
                 return Result<Product>.Failure(
                     "Product not found.");
             }
-
+            if (product.IsDeleted)
+            {
+                return Result<Product>.Failure(
+                    "Product is already inactive.");
+            }
             _productRepository.Delete(product);
             _unitOfWork.SaveChanges();
 

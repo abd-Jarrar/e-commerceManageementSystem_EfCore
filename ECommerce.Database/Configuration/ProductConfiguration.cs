@@ -73,6 +73,9 @@ namespace ECommerce.Database.Configuration
             }
         );
             });
+            builder.HasQueryFilter(p => !p.IsDeleted);
+            builder.Property(x => x.IsDeleted)
+       .HasDefaultValue(false);
             builder.ToTable("Products");
         }
     }

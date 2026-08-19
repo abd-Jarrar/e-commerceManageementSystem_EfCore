@@ -39,17 +39,10 @@ namespace ECommerce.App
                 categoryRepository,
                 unitOfWork);
 
-            var result = productService.DeleteProduct(1);
+            var categoryService=new CategoryService(categoryRepository, unitOfWork);
 
-            if (result.IsSuccess)
-            {
-                Console.WriteLine(
-                    $"Product '{result.Data!.Name}' deleted successfully.");
-            }
-            else
-            {
-                Console.WriteLine($"Failed: {result.Error}");
-            }
+          
+
 
         }
 

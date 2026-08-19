@@ -22,7 +22,7 @@ namespace ECommerce.Database.Configuration
             builder.Property(x=>x.PhoneNumber).IsRequired().HasMaxLength(15);
             builder.HasOne(x => x.Customer)
             .WithOne(x => x.CustomerProfile)
-            .HasForeignKey<CustomerProfile>(x => x.Id);
+            .HasForeignKey<CustomerProfile>(x => x.Id).OnDelete(DeleteBehavior.Cascade); ;
             builder.Property(x => x.BirthDate).IsRequired();
             builder.ToTable("CustomerProfiles");
         }

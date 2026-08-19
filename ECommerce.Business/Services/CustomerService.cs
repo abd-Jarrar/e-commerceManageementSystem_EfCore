@@ -177,39 +177,67 @@ namespace ECommerce.Business.Services
             return Result<List<Order>>.Success(orders);
         }
 
-        public Result<Customer> UpdateCustomer(Customer customer)
-        {
-            if (customer is null)
-            {
-                return Result<Customer>.Failure(
-                    "Customer cannot be null.");
+        public Result<Customer> UpdateCustomer(int id, string fullName, string email, string city, string street, string buildingNumber, string? postalCode, string phoneNumber, DateTime birthDate) {
+            if (id <= 0) {
+                return Result<Customer>.Failure("Customer ID must be greater than zero."); 
             }
 
-            if (customer.Id <= 0)
+            if (string.IsNullOrWhiteSpace(fullName))
             {
-                return Result<Customer>.Failure(
-                    "Customer ID must be greater than zero.");
+                return Result<Customer>.Failure("Customer name cannot be empty."); 
             }
 
-            if (string.IsNullOrWhiteSpace(customer.FullName))
+            if (string.IsNullOrWhiteSpace(email))
             {
-                return Result<Customer>.Failure(
-                    "Customer name cannot be empty.");
+                return Result<Customer>.Failure("Customer email cannot be empty."); 
             }
 
-            var existingCustomer = _customerRepository.GetById(customer.Id);
-
-            if (existingCustomer is null)
+            if (string.IsNullOrWhiteSpace(city))
             {
-                return Result<Customer>.Failure(
-                    "Customer not found.");
+                return Result<Customer>.Failure("Customer city cannot be empty."); 
+            } 
+
+            if (string.IsNullOrWhiteSpace(street))
+            {
+                return Result<Customer>.Failure("Customer street cannot be empty."); 
             }
 
+            if (string.IsNullOrWhiteSpace(buildingNumber))
+            {
+                return Result<Customer>.Failure("Customer building number cannot be empty."); 
+            } 
+
+            if (string.IsNullOrWhiteSpace(phoneNumber)) 
+            {
+                return Result<Customer>.Failure("Customer phone number cannot be empty."); 
+            } 
+
+            if (birthDate > DateTime.Today)
+            {
+                return Result<Customer>.Failure("Birth date cannot be in the future.");
+            }
+
+            var customer = _customerRepository.GetByIdForUpdate(id);
+
+            if (customer is null) {
+                return Result<Customer>.Failure("Customer not found."); 
+            } 
+
+            email = email.Trim();
+            if (_customerRepository.EmailExists(email)) {
+                return Result<Customer>.Failure("Email is already registered."); 
+            } 
+            customer.FullName = fullName.Trim();
+            customer.Email = email;
+            customer.Address.City = city.Trim();
+            customer.Address.Street = street.Trim();
+            customer.Address.BuildingNumber = buildingNumber.Trim();
+            customer.Address.PostalCode = postalCode?.Trim();
+            customer.CustomerProfile.PhoneNumber = phoneNumber.Trim();
+            customer.CustomerProfile.BirthDate = birthDate;
             _customerRepository.Update(customer);
             _unitOfWork.SaveChanges();
-
-            return Result<Customer>.Success(customer);
-        }
+            return Result<Customer>.Success(customer); }
 
         public Result<Customer> DeleteCustomerById(int id)
         {

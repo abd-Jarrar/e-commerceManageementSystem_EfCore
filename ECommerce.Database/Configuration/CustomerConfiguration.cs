@@ -53,7 +53,7 @@ namespace ECommerce.Database.Configuration
                     
                 }
                 );
-            builder.HasMany(x=>x.Orders).WithOne(x=>x.Customer).HasForeignKey(x=>x.CustomerId);
+            builder.HasMany(x=>x.Orders).WithOne(x=>x.Customer).HasForeignKey(x=>x.CustomerId).OnDelete(DeleteBehavior.Cascade);
             
         } 
     }

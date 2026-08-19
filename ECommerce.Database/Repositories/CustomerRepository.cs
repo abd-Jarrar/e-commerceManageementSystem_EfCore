@@ -77,5 +77,13 @@ namespace ECommerce.Database.Repositories
                 .Any(u => u.Email == email);
         }
 
+        public Customer? GetByIdForUpdate(int id)
+        {
+            return _context.Users
+                .OfType<Customer>()
+                .Include(c => c.CustomerProfile)
+                .FirstOrDefault(c => c.Id == id);
+        }
+
     }
 }

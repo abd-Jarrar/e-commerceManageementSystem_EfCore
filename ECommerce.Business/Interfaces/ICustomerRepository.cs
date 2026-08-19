@@ -22,5 +22,6 @@ namespace ECommerce.Business.Interfaces
         public List<Customer> GetCustomers(Expression<Func<Customer, bool>> condition);
 
         public bool EmailExists(string email);
+        public Customer? GetByIdForUpdate(int id);
     }
 }

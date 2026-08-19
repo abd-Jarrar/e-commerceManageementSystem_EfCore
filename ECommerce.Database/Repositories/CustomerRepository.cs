@@ -52,6 +52,7 @@ namespace ECommerce.Database.Repositories
         {
             return _context.Orders
                 .AsNoTracking()
+                .Include(o => o.Items)
                 .Where(o => o.CustomerId == customerId)
                 .Where(condition)
                 .ToList();

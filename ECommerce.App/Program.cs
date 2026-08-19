@@ -31,6 +31,7 @@ namespace ECommerce.App
 
             var productRepository = new ProductRepository(context);
             var categoryRepository = new CategoryRepository(context);
+            var customerRepository =new CustomerRepository(context);
             var unitOfWork = new UnitOfWork(context);
 
 
@@ -40,9 +41,19 @@ namespace ECommerce.App
                 unitOfWork);
 
             var categoryService=new CategoryService(categoryRepository, unitOfWork);
+            var customerService = new CustomerService(customerRepository, unitOfWork);
 
-          
 
+            var result8 = customerService.DeleteCustomerById(1);
+
+            if (result8.IsSuccess)
+            {
+                Console.WriteLine("Customer deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"Failed: {result8.Error}");
+            }
 
         }
 

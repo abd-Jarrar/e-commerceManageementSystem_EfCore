@@ -32,28 +32,24 @@ namespace ECommerce.App
 
             var productRepository = new ProductRepository(context);
             var categoryRepository = new CategoryRepository(context);
-            var customerRepository =new CustomerRepository(context);
-            var orderRepository=new OrderRepository(context);
+            var customerRepository = new CustomerRepository(context);
+            var orderRepository = new OrderRepository(context);
+            var reviewRepository = new ReviewRepository(context);
             var unitOfWork = new UnitOfWork(context);
 
 
-            var productService = new ProductService(
-                productRepository,
-                categoryRepository,
-                unitOfWork);
-
-            var categoryService=new CategoryService(categoryRepository, unitOfWork);
+            var productService = new ProductService(productRepository, categoryRepository, unitOfWork);
+            var categoryService = new CategoryService(categoryRepository, unitOfWork);
             var customerService = new CustomerService(customerRepository, unitOfWork);
             var orderService = new OrderService(productRepository, orderRepository, customerRepository, unitOfWork);
+            var reviewService = new ReviewService(reviewRepository, customerRepository, productRepository, unitOfWork);
 
-            var result = categoryService.GetCategoriesByRevenue(-100);
 
-            Console.WriteLine(result.IsSuccess);
+            var result = reviewService.GetReviewById(1001);
+
+            Console.WriteLine($"Success: {result.IsSuccess}");
             Console.WriteLine(result.Error);
 
-
-
         }
-
     }
 }

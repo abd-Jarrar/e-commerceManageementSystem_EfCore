@@ -23,9 +23,25 @@ namespace ECommerce.Business.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Result<Product> CreateProduct(string name,decimal price,int categoryId, string color,
-    decimal? weight,
-    string description)
+        private Result<Product> GetProductForOperation(int productId)
+        {
+            if (productId <= 0)
+            {
+                return Result<Product>.Failure(
+                    "Product ID must be greater than zero.");
+            }
+
+            var product = _productRepository.GetById(productId);
+
+            if (product is null)
+            {
+                return Result<Product>.Failure(
+                    "Product not found.");
+            }
+
+            return Result<Product>.Success(product);
+        }
+        public Result<Product> CreateProduct(string name,decimal price,int categoryId, string color,decimal? weight,string description)
         {
             
             if (string.IsNullOrWhiteSpace(name))
@@ -64,9 +80,9 @@ namespace ECommerce.Business.Services
                 CategoryId = categoryId,
                 Details = new ProductDetails
                 {
-                    Color = color,
+                    Color = color.Trim(),
                     Weight = weight,
-                    Description = description
+                    Description = description.Trim()
                 }
 
             };
@@ -182,19 +198,63 @@ namespace ECommerce.Business.Services
                     "Product ID must be greater than zero.");
             }
 
-            var product = _productRepository.GetById(id);
+            var result = GetProductForOperation(id);
 
-            if (product is null)
+            if (!result.IsSuccess)
             {
-                return Result<Product>.Failure(
-                    "Product not found.");
+                return result;
             }
+
+            var product = result.Data!;
             if (product.IsDeleted)
             {
                 return Result<Product>.Failure(
                     "Product is already inactive.");
             }
             _productRepository.Delete(product);
+            _unitOfWork.SaveChanges();
+
+            return Result<Product>.Success(product);
+        }
+
+        public Result<List<Product>> GetProducts( Expression<Func<Product, bool>> condition)
+        {
+            if (condition is null)
+            {
+                return Result<List<Product>>.Failure(
+                    "Product condition cannot be null.");
+            }
+
+            var products = _productRepository.GetProducts(condition);
+
+            return Result<List<Product>>.Success(products);
+        }
+        public Result<Product> AddStock(int productId, int quantity)
+        {
+            if (quantity <= 0)
+            {
+                return Result<Product>.Failure(
+                    "Stock quantity must be greater than zero.");
+            }
+
+            var result = GetProductForOperation(productId);
+
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
+
+            var product = result.Data!;
+
+            if (product.IsDeleted)
+            {
+                return Result<Product>.Failure(
+                    "Cannot add stock to an inactive product.");
+            }
+
+            product.StockQuantity += quantity;
+
+            _productRepository.Update(product);
             _unitOfWork.SaveChanges();
 
             return Result<Product>.Success(product);

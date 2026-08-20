@@ -29,5 +29,7 @@ namespace ECommerce.Business.Interfaces
 
         List<Product> GetByIds(List<int> ids);
 
+        List<Product> GetProducts(Expression<Func<Product, bool>> condition);
+
     }
 }

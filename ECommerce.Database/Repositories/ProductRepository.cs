@@ -76,5 +76,12 @@ namespace ECommerce.Database.Repositories
                 .Where(p => ids.Contains(p.Id))
                 .ToList();
         }
+        public List<Product> GetProducts(Expression<Func<Product, bool>> condition)
+        {
+            return _context.Products
+                .AsNoTracking()
+                .Where(condition)
+                .ToList();
+        }
     }
 }

@@ -66,6 +66,30 @@ namespace ECommerce.Business.Services
                     "Customer not found.");
             }
 
+            foreach (var item in items)
+            {
+                if (item.ProductId <= 0)
+                {
+                    return Result<Order>.Failure(
+                        "Product ID must be greater than zero.");
+                }
+
+                if (item.Quantity <= 0)
+                {
+                    return Result<Order>.Failure(
+                        "Product quantity must be greater than zero.");
+                }
+            }
+
+            var productIds = items
+                .Select(i => i.ProductId)
+                .Distinct()
+                .ToList();
+
+            var products = _productRepository.GetByIds(productIds);
+
+            var productsById = products.ToDictionary(p => p.Id);
+
             _unitOfWork.BeginTransaction();
 
             try
@@ -79,25 +103,9 @@ namespace ECommerce.Business.Services
 
                 foreach (var item in items)
                 {
-                    if (item.ProductId <= 0)
-                    {
-                        _unitOfWork.RollbackTransaction();
-
-                        return Result<Order>.Failure(
-                            "Product ID must be greater than zero.");
-                    }
-
-                    if (item.Quantity <= 0)
-                    {
-                        _unitOfWork.RollbackTransaction();
-
-                        return Result<Order>.Failure(
-                            "Product quantity must be greater than zero.");
-                    }
-
-                    var product = _productRepository.GetById(item.ProductId);
-
-                    if (product is null)
+                    if (!productsById.TryGetValue(
+                            item.ProductId,
+                            out var product))
                     {
                         _unitOfWork.RollbackTransaction();
 
@@ -137,11 +145,9 @@ namespace ECommerce.Business.Services
             catch
             {
                 _unitOfWork.RollbackTransaction();
-
                 throw;
             }
         }
-
         public Result<Order> GetOrderById(int id)
         {
             var result = GetOrderForOperation(id);

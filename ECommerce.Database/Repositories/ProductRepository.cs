@@ -69,5 +69,12 @@ namespace ECommerce.Database.Repositories
 
             return affectedRows == 1;
         }
+
+        public List<Product> GetByIds(List<int> ids)
+        {
+            return _context.Products
+                .Where(p => ids.Contains(p.Id))
+                .ToList();
+        }
     }
 }

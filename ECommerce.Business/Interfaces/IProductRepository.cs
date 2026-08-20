@@ -26,5 +26,8 @@ namespace ECommerce.Business.Interfaces
         int ApplyDiscount(Expression<Func<Product, bool>> condition,decimal discountPercentage);
 
         bool TryDecreaseStock(int productId, int quantity);
+
+        List<Product> GetByIds(List<int> ids);
+
     }
 }

@@ -18,6 +18,7 @@ namespace ECommerce.Business.Entities
 
         public int ProductId { get; set; }
 
+        public DateTime CreatedDate { get; set; }
         public Product Product { get; set; } = null!;
         public Customer Customer { get; set; } = null!;
 

@@ -4,6 +4,7 @@ using ECommerce.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260820123815_review_data")]
+    partial class review_data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -297,10 +300,19 @@ namespace ECommerce.Database.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1,
+                            Comment = "Excellent product!",
+                            CreatedDate = new DateTime(2026, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerId = 1,
+                            ProductId = 2,
+                            Rating = 5
+                        },
+                        new
+                        {
                             Id = 2,
                             Comment = "Very good quality.",
                             CreatedDate = new DateTime(2026, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CustomerId = 1,
+                            CustomerId = 2,
                             ProductId = 2,
                             Rating = 4
                         },

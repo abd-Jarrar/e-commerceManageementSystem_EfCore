@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +20,8 @@ namespace ECommerce.Business.Interfaces
         void UpdateCategory(Category category);
         bool HasProducts(int categoryId);
 
-       
+        List<Category> GetCategories(Expression<Func<Category, bool>> condition);
 
+        List<Category> GetCategoriesByRevenue(decimal minimumRevenue);
     }
 }

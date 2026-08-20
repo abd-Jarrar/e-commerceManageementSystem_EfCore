@@ -46,21 +46,11 @@ namespace ECommerce.App
             var customerService = new CustomerService(customerRepository, unitOfWork);
             var orderService = new OrderService(productRepository, orderRepository, customerRepository, unitOfWork);
 
-            var result = productService.GetProducts(
-    p => p.CategoryId == 8);
+            var result = categoryService.GetCategoriesByRevenue(-100);
 
-            if (result.IsSuccess)
-            {
-                foreach (var product in result.Data!)
-                {
-                    Console.WriteLine(
-                        $"{product.Id} - {product.Name}");
-                }
-            }
-            else
-            {
-                Console.WriteLine(result.Error);
-            }
+            Console.WriteLine(result.IsSuccess);
+            Console.WriteLine(result.Error);
+
 
 
         }

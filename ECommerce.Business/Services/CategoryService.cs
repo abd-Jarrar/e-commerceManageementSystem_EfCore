@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,5 +136,31 @@ namespace ECommerce.Business.Services
             return Result<Category>.Success(category);
         }
 
+        public Result<List<Category>> GetCategories(Expression<Func<Category, bool>> condition)
+        {
+            if (condition is null)
+            {
+                return Result<List<Category>>.Failure(
+                    "Category condition cannot be null.");
+            }
+
+            var categories = _categoryRepository.GetCategories(condition);
+
+            return Result<List<Category>>.Success(categories);
+        }
+
+        public Result<List<Category>> GetCategoriesByRevenue(decimal minimumRevenue)
+        {
+            if (minimumRevenue < 0)
+            {
+                return Result<List<Category>>.Failure(
+                    "Minimum revenue cannot be negative.");
+            }
+
+            var categories =
+                _categoryRepository.GetCategoriesByRevenue(minimumRevenue);
+
+            return Result<List<Category>>.Success(categories);
+        }
     }
 }

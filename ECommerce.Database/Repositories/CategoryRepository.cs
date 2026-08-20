@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,25 @@ namespace ECommerce.Database.Repositories
 
         }
 
+        public List<Category> GetCategories(Expression<Func<Category, bool>> condition)
+        {
+            return _context.Categories
+                .AsNoTracking()
+                .Where(condition)
+                .ToList();
+        }
 
+        public List<Category> GetCategoriesByRevenue(decimal minimumRevenue)
+        {
+            return _context.Categories
+                .Where(c =>
+                    _context.OrderItems
+                        .Where(oi =>
+                            oi.Product.CategoryId == c.Id &&
+                            (oi.Order.Status == OrderStatus.Paid ||
+                             oi.Order.Status == OrderStatus.Shipped))
+                        .Sum(oi => oi.Price * oi.Quantity) > minimumRevenue)
+                .ToList();
+        }
     }
 }

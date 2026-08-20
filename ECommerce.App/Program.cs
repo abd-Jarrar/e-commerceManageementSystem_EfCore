@@ -1,4 +1,5 @@
 ﻿using ECommerce.Business.Entities;
+using ECommerce.Business.Requests;
 using ECommerce.Business.Results;
 using ECommerce.Business.Services;
 using ECommerce.Database.Data;
@@ -32,6 +33,7 @@ namespace ECommerce.App
             var productRepository = new ProductRepository(context);
             var categoryRepository = new CategoryRepository(context);
             var customerRepository =new CustomerRepository(context);
+            var orderRepository=new OrderRepository(context);
             var unitOfWork = new UnitOfWork(context);
 
 
@@ -42,18 +44,10 @@ namespace ECommerce.App
 
             var categoryService=new CategoryService(categoryRepository, unitOfWork);
             var customerService = new CustomerService(customerRepository, unitOfWork);
+            var orderService = new OrderService(productRepository, orderRepository, customerRepository, unitOfWork);
 
 
-            var result8 = customerService.DeleteCustomerById(1);
-
-            if (result8.IsSuccess)
-            {
-                Console.WriteLine("Customer deleted successfully.");
-            }
-            else
-            {
-                Console.WriteLine($"Failed: {result8.Error}");
-            }
+            
 
         }
 

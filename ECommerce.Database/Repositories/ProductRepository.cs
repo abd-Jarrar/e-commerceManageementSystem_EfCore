@@ -57,5 +57,17 @@ namespace ECommerce.Database.Repositories
         {
             _context.Products.Update(product);
         }
+        public bool TryDecreaseStock(int productId, int quantity)
+        {
+            var affectedRows = _context.Products
+                .Where(p => p.Id == productId &&
+                            p.StockQuantity >= quantity)
+                .ExecuteUpdate(setters =>
+                    setters.SetProperty(
+                        p => p.StockQuantity,
+                        p => p.StockQuantity - quantity));
+
+            return affectedRows == 1;
+        }
     }
 }

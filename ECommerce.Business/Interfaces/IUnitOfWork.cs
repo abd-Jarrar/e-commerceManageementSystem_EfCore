@@ -9,5 +9,10 @@ namespace ECommerce.Business.Interfaces
     public interface IUnitOfWork
     {
         void SaveChanges();
+        void BeginTransaction();
+
+        void CommitTransaction();
+
+        void RollbackTransaction();
     }
 }

@@ -36,6 +36,7 @@ namespace ECommerce.App
             var orderRepository = new OrderRepository(context);
             var reviewRepository = new ReviewRepository(context);
             var employeeRepository = new EmployeeRepository(context);
+            var adminRepository = new AdminRepository(context);
             var unitOfWork = new UnitOfWork(context);
             
 
@@ -45,20 +46,22 @@ namespace ECommerce.App
             var orderService = new OrderService(productRepository, orderRepository, customerRepository, unitOfWork);
             var reviewService = new ReviewService(reviewRepository, customerRepository, productRepository, unitOfWork);
             var employeeService= new EmployeeService(employeeRepository, unitOfWork);
+            var adminService = new AdminService(adminRepository, employeeRepository, unitOfWork);
 
-            var result = employeeService.DeleteEmployeeById(2001);
+            var result = adminService.DeleteAdminById(3);
 
+            Console.WriteLine("\n=== Delete Admin ===");
             Console.WriteLine($"Success: {result.IsSuccess}");
 
             if (result.IsSuccess)
             {
-                Console.WriteLine(
-                    $"Deleted employee: {result.Data!.FullName}");
+                Console.WriteLine("Admin deleted successfully.");
             }
             else
             {
                 Console.WriteLine(result.Error);
             }
+
         }
     }
 }

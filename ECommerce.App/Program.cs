@@ -35,33 +35,30 @@ namespace ECommerce.App
             var customerRepository = new CustomerRepository(context);
             var orderRepository = new OrderRepository(context);
             var reviewRepository = new ReviewRepository(context);
+            var employeeRepository = new EmployeeRepository(context);
             var unitOfWork = new UnitOfWork(context);
-
+            
 
             var productService = new ProductService(productRepository, categoryRepository, unitOfWork);
             var categoryService = new CategoryService(categoryRepository, unitOfWork);
             var customerService = new CustomerService(customerRepository, unitOfWork);
             var orderService = new OrderService(productRepository, orderRepository, customerRepository, unitOfWork);
             var reviewService = new ReviewService(reviewRepository, customerRepository, productRepository, unitOfWork);
+            var employeeService= new EmployeeService(employeeRepository, unitOfWork);
 
-            var result1 = orderService.MarkOrderAsDelivered(1001);
-             var result2 = reviewService.CreateReview(
-    customerId: 1,
-    productId: 3,
-    rating: 5,
-    comment: "Excellent product!!!!!!");
+            var result = employeeService.DeleteEmployeeById(2001);
 
-            Console.WriteLine($"Success: {result2.IsSuccess}");
+            Console.WriteLine($"Success: {result.IsSuccess}");
 
-            if (result2.IsSuccess)
+            if (result.IsSuccess)
             {
-                Console.WriteLine($"Review ID: {result2.Data!.Id}");
+                Console.WriteLine(
+                    $"Deleted employee: {result.Data!.FullName}");
             }
             else
             {
-                Console.WriteLine(result2.Error);
+                Console.WriteLine(result.Error);
             }
-
         }
     }
 }

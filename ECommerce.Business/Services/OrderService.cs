@@ -177,6 +177,7 @@ namespace ECommerce.Business.Services
 
             return Result<List<Order>>.Success(orders);
         }
+
         public Result<Order> MarkOrderAsPaid(int id)
         {
             var result = GetOrderForOperation(id);
@@ -219,6 +220,31 @@ namespace ECommerce.Business.Services
             }
 
             order.Status = OrderStatus.Shipped;
+
+            _orderRepository.Update(order);
+            _unitOfWork.SaveChanges();
+
+            return Result<Order>.Success(order);
+        }
+
+        public Result<Order> MarkOrderAsDelivered(int id)
+        {
+            var result = GetOrderForOperation(id);
+
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
+
+            var order = result.Data!;
+
+            if (order.Status != OrderStatus.Shipped)
+            {
+                return Result<Order>.Failure(
+                    "Only shipped orders can be marked as delivered.");
+            }
+
+            order.Status = OrderStatus.Delivered;
 
             _orderRepository.Update(order);
             _unitOfWork.SaveChanges();

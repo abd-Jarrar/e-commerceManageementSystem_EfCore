@@ -66,10 +66,10 @@ namespace ECommerce.Business.Services
                     "Product not found.");
             }
 
-            var purchased = _reviewRepository
-                .CustomerPurchasedProduct(customerId, productId);
+            var received = _reviewRepository
+                .CustomerReceivedProduct(customerId, productId);
 
-            if (!purchased)
+            if (!received)
             {
                 return Result<Review>.Failure("Customer can only review products they have purchased and received.");
             }

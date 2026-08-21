@@ -44,7 +44,23 @@ namespace ECommerce.App
             var orderService = new OrderService(productRepository, orderRepository, customerRepository, unitOfWork);
             var reviewService = new ReviewService(reviewRepository, customerRepository, productRepository, unitOfWork);
 
+            var result1 = orderService.MarkOrderAsDelivered(1001);
+             var result2 = reviewService.CreateReview(
+    customerId: 1,
+    productId: 3,
+    rating: 5,
+    comment: "Excellent product!!!!!!");
 
+            Console.WriteLine($"Success: {result2.IsSuccess}");
+
+            if (result2.IsSuccess)
+            {
+                Console.WriteLine($"Review ID: {result2.Data!.Id}");
+            }
+            else
+            {
+                Console.WriteLine(result2.Error);
+            }
 
         }
     }

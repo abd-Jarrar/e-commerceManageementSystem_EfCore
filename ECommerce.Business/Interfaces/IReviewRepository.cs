@@ -20,7 +20,7 @@ namespace ECommerce.Business.Interfaces
 
         List<Review> GetByCustomerId(int customerId);
 
-        bool CustomerPurchasedProduct(int customerId, int productId);
+        bool CustomerReceivedProduct(int customerId, int productId);
 
         void Update(Review review);
 

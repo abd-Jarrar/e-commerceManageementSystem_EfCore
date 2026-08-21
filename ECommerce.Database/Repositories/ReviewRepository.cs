@@ -50,12 +50,12 @@ namespace ECommerce.Database.Repositories
                 .ToList();
         }
 
-        public bool CustomerPurchasedProduct(int customerId, int productId)
+        public bool CustomerReceivedProduct(int customerId, int productId)
         {
             return _context.Orders
                 .Any(o =>
                     o.CustomerId == customerId &&
-                    o.Status == OrderStatus.Shipped &&
+                    o.Status == OrderStatus.Delivered &&
                     o.Items.Any(i => i.ProductId == productId));
         }
 

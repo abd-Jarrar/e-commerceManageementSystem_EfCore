@@ -12,5 +12,6 @@ namespace ECommerce.Business.Entities
         Paid,
         Shipped,
         Cancelled,
+        Delivered
     }
 }

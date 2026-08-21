@@ -45,10 +45,6 @@ namespace ECommerce.App
             var reviewService = new ReviewService(reviewRepository, customerRepository, productRepository, unitOfWork);
 
 
-            var result = reviewService.GetReviewById(1001);
-
-            Console.WriteLine($"Success: {result.IsSuccess}");
-            Console.WriteLine(result.Error);
 
         }
     }

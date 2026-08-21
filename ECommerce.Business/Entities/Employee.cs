@@ -8,6 +8,7 @@ namespace ECommerce.Business.Entities
 {
     public class Employee:User
     {
+        public string PhoneNumber { get; set; } = "";
         public decimal Salary { get; set; }
 
         public DateTime HireDate { get; set; }
